@@ -44,7 +44,7 @@
                     
                                         <mat-form-field appearance="fill" class="form-field">
                                             <mat-label>Fecha de caducidad</mat-label>
-                                            <input matInput formControlName="fecha" type="date" />
+                                            <input matInput formControlName="caducidad" type="date" />
                                         </mat-form-field>
                     
                                         <mat-form-field appearance="fill" class="form-field">
@@ -59,17 +59,22 @@
                     
                                         <mat-form-field appearance="fill" class="form-field">
                                             <mat-label>Salida</mat-label>
-                                            <input matInput formControlName="entrada" type="number" />
+                                            <input matInput formControlName="salida" type="number" />
                                         </mat-form-field>
 
                                         <mat-form-field appearance="fill" class="form-field">
                                             <mat-label>stock</mat-label>
-                                            <input matInput formControlName="entrada" type="number" />
+                                            <input matInput formControlName="stock" type="number" />
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="form-field">
+                                            <mat-label>Dias Disponibles</mat-label>
+                                            <input matInput formControlName="diasDisp" type="number" />
                                         </mat-form-field>
 
                                         <mat-form-field appearance="fill" class="form-field">
                                             <mat-label>estado</mat-label>
-                                            <input matInput formControlName="entrada" type="number" />
+                                            <input matInput formControlName="estado"/>
                                         </mat-form-field>
 
                                         <mat-dialog-actions>
@@ -101,7 +106,7 @@
                                     <tr *ngFor="let item of medicamentos">
                                         <td>
                                             <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
-                                                <button type="button" class="btn btn-danger">Eliminar</button>
+                                                <button type="button" class="btn btn-danger" (click)="eliminar(item.id)">Eliminar</button>
                                                 <button type="button" class="btn btn-info">Editar</button>
                                               </div>
                                         </td>

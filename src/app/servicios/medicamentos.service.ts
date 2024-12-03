@@ -16,4 +16,8 @@ export class MedicamentosService {
   agregarMedicamento(medicamento:any):Observable<any>{
     return this.http.post<any>(this.apiUrl+'/medicamentos/create',medicamento);
   }
+
+  eliminarMedicamento(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/medicamentos/${id}`);
+}
 }

@@ -22,11 +22,18 @@ export class EntradaMedicamentosComponent implements OnInit {
 
   cargarformulario() {
     this.medicamentoForm = this.fb.group({
+      ID: [''],
       codigo: ['', Validators.required],
-      medicamento: [''],
       fecha: [''],
+      noDoc: [''],
+      medicamento: [''],
+      caducidad: [''],
       unidad: [''],
-      entrada: [0, Validators.min(0)]
+      entrada: [0, Validators.min(0)],
+      salida: [''],
+      stock: [''],
+      diasDisp: [''],
+      estado: ['']
     });
   }
 
@@ -43,19 +50,22 @@ export class EntradaMedicamentosComponent implements OnInit {
   }
 
   eliminar(id: string) {
-    console.log('Eliminar id:', id);
-    // Lógica para eliminar el medicamento
-    this.medicamentos = this.medicamentos.filter(med => med.id !== id);
+    const confirmDelete = confirm("¿Estás seguro de que deseas eliminar este medicamento?");
+        if (confirmDelete) {
+            this.medicamentosService.eliminarMedicamento(id).subscribe(() => {
+              this.listarMedicamentosEntrada();
+            });
+        }
   }
   openModal() {
     this.dialog.open(this.medicamentoModal);
   }
   onSubmit() {
     if (this.medicamentoForm.valid) {
-        this.medicamentosService.agregarMedicamento(this.medicamentoForm.value).subscribe(() => {
-            this.dialog.closeAll();
-            this.listarMedicamentosEntrada(); 
-        });
+      this.medicamentosService.agregarMedicamento(this.medicamentoForm.value).subscribe(() => {
+        this.dialog.closeAll();
+        this.listarMedicamentosEntrada();
+      });
     }
-}
+  }
 }
