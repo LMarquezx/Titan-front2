@@ -9,7 +9,14 @@ import { AppComponent } from './app.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { MedicamentosComponent } from './medicamentos/medicamentos.component';
 import { EntradaMedicamentosComponent } from './entrada-medicamentos/entrada-medicamentos.component';
-
+import { SalidaMedicamentosComponent } from './salida-medicamentos/salida-medicamentos.component';
+import { BaseSalidasComponent } from './base-salidas/base-salidas.component';
+import { InformesComponent } from './informes/informes.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -19,12 +26,20 @@ import { EntradaMedicamentosComponent } from './entrada-medicamentos/entrada-med
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     MedicamentosComponent,
     EntradaMedicamentosComponent,
+    SalidaMedicamentosComponent,
+    BaseSalidasComponent,
+    InformesComponent,
 
   ],
   providers: [],
