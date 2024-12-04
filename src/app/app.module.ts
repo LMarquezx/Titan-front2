@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { RegistrarMedicamentoComponent } from './registrar-medicamento/registrar-medicamento.component';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -40,6 +41,7 @@ import { MatIconModule } from '@angular/material/icon';
     SalidaMedicamentosComponent,
     BaseSalidasComponent,
     InformesComponent,
+    RegistrarMedicamentoComponent,
 
   ],
   providers: [],

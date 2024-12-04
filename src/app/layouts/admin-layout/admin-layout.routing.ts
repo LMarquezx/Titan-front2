@@ -7,6 +7,7 @@ import { EntradaMedicamentosComponent } from 'app/entrada-medicamentos/entrada-m
 import { SalidaMedicamentosComponent } from 'app/salida-medicamentos/salida-medicamentos.component';
 import { BaseSalidasComponent } from 'app/base-salidas/base-salidas.component';
 import { InformesComponent } from 'app/informes/informes.component';
+import { RegistrarMedicamentoComponent } from 'app/registrar-medicamento/registrar-medicamento.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -58,4 +59,5 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'salida-medicamentos',component: SalidaMedicamentosComponent },
     { path: 'base-salidas',component: BaseSalidasComponent },
     { path: 'informes',  component: InformesComponent },
+    { path: 'registrar-medicamento',  component: RegistrarMedicamentoComponent },
 ];

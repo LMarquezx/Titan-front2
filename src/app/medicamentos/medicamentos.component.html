@@ -1,1 +1,34 @@
-<p>medicamentos works!</p>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Medicamentos</h4>
+                        <p class="card-category"> Se muestran los medicamentos disponibles con sus claves</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Medicamento</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of medicamentos">
+                                        <td>{{ item.codigo }}</td>
+                                        <td>{{ item.medicamento }}</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  

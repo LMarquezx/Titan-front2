@@ -3,94 +3,16 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header card-header-success">
-                        <h4 class="card-title ">Entrada de medicamentos</h4>
-                        <p class="card-category">Medicamentos disponibles en Entradas</p>
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title ">Entrada de Medicamentos</h4>
+                        <p class="card-category"> Se muestran los medicamentos almacenados.</p>
                     </div>
                     <div class="card-body">
-                        <button mat-raised-button color="primary" (click)="openModal()">
-                            Agregar Medicamento
-                        </button>
-                        <mat-dialog-content>
-                            <ng-template #medicamentoModal>
-                                <h2 mat-dialog-title>Agregar Medicamento</h2>
-                                <mat-dialog-content>
-                                    <form [formGroup]="medicamentoForm" (ngSubmit)="onSubmit()">
-                                        <mat-form-field appearance="fill" class="form-field">
-                                            <mat-label>ID</mat-label>
-                                            <input matInput formControlName="ID" />
-                                            <mat-error *ngIf="medicamentoForm.get('id')?.invalid">El id es obligatorio</mat-error>
-                                        </mat-form-field>
-                                        <mat-form-field appearance="fill" class="form-field">
-                                            <mat-label>Código</mat-label>
-                                            <input matInput formControlName="codigo" />
-                                            <mat-error *ngIf="medicamentoForm.get('codigo')?.invalid">El código es obligatorio</mat-error>
-                                        </mat-form-field>
-                    
-                                        <mat-form-field appearance="fill" class="form-field">
-                                            <mat-label>Fecha</mat-label>
-                                            <input matInput formControlName="fecha" type="date" />
-                                        </mat-form-field>
-
-                                        <mat-form-field appearance="fill" class="form-field">
-                                            <mat-label>Número de documento</mat-label>
-                                            <input matInput formControlName="noDoc" />
-                                        </mat-form-field>
-
-                                        <mat-form-field appearance="fill" class="form-field">
-                                            <mat-label>Medicamento</mat-label>
-                                            <input matInput formControlName="medicamento" />
-                                        </mat-form-field>
-                    
-                                        <mat-form-field appearance="fill" class="form-field">
-                                            <mat-label>Fecha de caducidad</mat-label>
-                                            <input matInput formControlName="caducidad" type="date" />
-                                        </mat-form-field>
-                    
-                                        <mat-form-field appearance="fill" class="form-field">
-                                            <mat-label>Unidad</mat-label>
-                                            <input matInput formControlName="unidad" />
-                                        </mat-form-field>
-                    
-                                        <mat-form-field appearance="fill" class="form-field">
-                                            <mat-label>Entrada</mat-label>
-                                            <input matInput formControlName="entrada" type="number" />
-                                        </mat-form-field>
-                    
-                                        <mat-form-field appearance="fill" class="form-field">
-                                            <mat-label>Salida</mat-label>
-                                            <input matInput formControlName="salida" type="number" />
-                                        </mat-form-field>
-
-                                        <mat-form-field appearance="fill" class="form-field">
-                                            <mat-label>stock</mat-label>
-                                            <input matInput formControlName="stock" type="number" />
-                                        </mat-form-field>
-
-                                        <mat-form-field appearance="fill" class="form-field">
-                                            <mat-label>Dias Disponibles</mat-label>
-                                            <input matInput formControlName="diasDisp" type="number" />
-                                        </mat-form-field>
-
-                                        <mat-form-field appearance="fill" class="form-field">
-                                            <mat-label>estado</mat-label>
-                                            <input matInput formControlName="estado"/>
-                                        </mat-form-field>
-
-                                        <mat-dialog-actions>
-                                            <button mat-button  type="submit" [disabled]="medicamentoForm.invalid">Guardar</button>
-                                            <button mat-button mat-dialog-close>Cerrar</button>
-                                        </mat-dialog-actions>
-                                    </form>
-                                </mat-dialog-content>
-                            </ng-template>
-                        </mat-dialog-content>
-                        
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-primary">
                                     <tr>
-                                        <th>Acciones</th>
+                                        <th>id</th>
                                         <th>Código</th>
                                         <th>Medicamento</th>
                                         <th>Unidad</th>
@@ -104,12 +26,7 @@
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let item of medicamentos">
-                                        <td>
-                                            <div class="btn-group btn-group-sm" role="group" aria-label="Small button group">
-                                                <button type="button" class="btn btn-danger" (click)="eliminar(item.id)">Eliminar</button>
-                                                <button type="button" class="btn btn-info">Editar</button>
-                                              </div>
-                                        </td>
+                                        <td>{{item.id}}</td>
                                         <td>{{ item.codigo }}</td>
                                         <td>{{ item.medicamento }}</td>
                                         <td>{{ item.unidad }}</td>
@@ -129,4 +46,5 @@
             </div>
         </div>
     </div>
-</div>
+  </div>
+  

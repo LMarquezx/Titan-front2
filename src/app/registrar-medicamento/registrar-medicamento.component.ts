@@ -4,11 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-salida-medicamentos',
-  templateUrl: './salida-medicamentos.component.html',
-  styleUrls: ['./salida-medicamentos.component.scss']
+  selector: 'app-registrar-medicamento',
+  templateUrl: './registrar-medicamento.component.html',
+  styleUrls: ['./registrar-medicamento.component.scss']
 })
-export class SalidaMedicamentosComponent implements OnInit {
+export class RegistrarMedicamentoComponent implements OnInit {
   @ViewChild('medicamentoModal') medicamentoModal!: TemplateRef<any>;
   @ViewChild('editMedicamentoModal') editMedicamentoModal!: TemplateRef<any>;
   medicamentos: any[]=[];
@@ -27,14 +27,20 @@ export class SalidaMedicamentosComponent implements OnInit {
       id: [''],
       codigo: ['', Validators.required],
       fecha: [''],
+      noDoc: [''],
       medicamento: [''],
+      caducidad: [''],
       unidad: [''],
-      cantidad:['']
+      entrada: [0, Validators.min(0)],
+      salida: [''],
+      stock: [''],
+      diasDisp: [''],
+      estado: ['']
     });
   }
 
   listarMedicamentosEntrada() {
-    this.medicamentosService.getMedicamentosSalidas().subscribe((data) => {
+    this.medicamentosService.getMedicamentos().subscribe((data) => {
       console.log(data);
       this.medicamentos = data;
     })
@@ -49,8 +55,15 @@ export class SalidaMedicamentosComponent implements OnInit {
         id:medicamento.id,
         codigo: medicamento.codigo,
         fecha: medicamento.fecha,
+        noDoc:medicamento.noDoc,
         medicamento: medicamento.medicamento,
-        cantidad:medicamento.cantidad,
+        caducidad:medicamento.caducidad,    
+        unidad: medicamento.unidad,
+        entrada: medicamento.entrada,
+        salida:medicamento.salida,
+        stock:medicamento.stock,
+        diasDisp:medicamento.diasDisp,
+        estado:medicamento.estado
     });
     this.dialog.open(this.editMedicamentoModal);
 }
@@ -58,7 +71,7 @@ export class SalidaMedicamentosComponent implements OnInit {
   eliminar(id: string) {
     const confirmDelete = confirm("¿Estás seguro de que deseas eliminar este medicamento?");
         if (confirmDelete) {
-            this.medicamentosService.eliminarMedicamentoSalidas(id).subscribe(() => {
+            this.medicamentosService.eliminarMedicamento(id).subscribe(() => {
               this.listarMedicamentosEntrada();
             });
         }
@@ -68,7 +81,7 @@ export class SalidaMedicamentosComponent implements OnInit {
   }
   onAddSubmit() {
     if (this.medicamentoForm.valid) {
-      this.medicamentosService.agregarMedicamentoSalidas(this.medicamentoForm.value).subscribe(() => {
+      this.medicamentosService.agregarMedicamento(this.medicamentoForm.value).subscribe(() => {
         this.dialog.closeAll();
         this.listarMedicamentosEntrada();
       });
@@ -77,7 +90,7 @@ export class SalidaMedicamentosComponent implements OnInit {
   onEditSubmit() {
     if (this.medicamentoForm.valid && this.selectedMedicamento) {
         const updatedMedicamento = { ...this.selectedMedicamento, ...this.medicamentoForm.value };
-        this.medicamentosService.editarMedicamentoSalidas(updatedMedicamento).subscribe(() => {
+        this.medicamentosService.editarMedicamento(updatedMedicamento).subscribe(() => {
             this.dialog.closeAll();
             this.listarMedicamentosEntrada(); 
         });

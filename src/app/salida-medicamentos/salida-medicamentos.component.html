@@ -1,1 +1,150 @@
-<p>salida-medicamentos works!</p>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-success">
+                        <h4 class="card-title ">Salida de medicamentos</h4>
+                        <p class="card-category">Medicamentos disponibles en Salidas</p>
+                    </div>
+                    <div class="card-body">
+                        <button mat-raised-button color="primary" (click)="openModal()">
+                            Agregar Medicamento
+                        </button>
+                        <mat-dialog-content>
+                            <ng-template #medicamentoModal>
+                                <h2 mat-dialog-title>Agregar Medicamento</h2>
+                                <mat-dialog-content>
+                                    <form [formGroup]="medicamentoForm" (ngSubmit)="onAddSubmit()">
+                                        <mat-form-field appearance="fill" class="form-field">
+                                            <mat-label>ID</mat-label>
+                                            <input matInput formControlName="id" />
+                                            <mat-error *ngIf="medicamentoForm.get('id')?.invalid">El id es
+                                                obligatorio</mat-error>
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="form-field">
+                                            <mat-label>Código</mat-label>
+                                            <input matInput formControlName="codigo" />
+                                            <mat-error *ngIf="medicamentoForm.get('codigo')?.invalid">El código es
+                                                obligatorio</mat-error>
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="form-field">
+                                            <mat-label>Fecha</mat-label>
+                                            <input matInput formControlName="fecha" type="date" />
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="form-field">
+                                            <mat-label>Medicamento</mat-label>
+                                            <input matInput formControlName="medicamento" />
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="form-field">
+                                            <mat-label>Unidad</mat-label>
+                                            <input matInput formControlName="unidad" />
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill" class="form-field">
+                                            <mat-label>cantidad</mat-label>
+                                            <input matInput formControlName="cantidad" type="number" />
+                                        </mat-form-field>
+
+                                        <mat-dialog-actions>
+                                            <button mat-button type="submit"
+                                                [disabled]="medicamentoForm.invalid">Guardar</button>
+                                            <button mat-button mat-dialog-close>Cerrar</button>
+                                        </mat-dialog-actions>
+                                    </form>
+                                </mat-dialog-content>
+                            </ng-template>
+                        </mat-dialog-content>
+                        <mat-dialog-content>
+                            <ng-template #editMedicamentoModal>
+                                <h2 mat-dialog-title>Editar Medicamento</h2>
+                                <mat-dialog-content>
+                                    <form [formGroup]="medicamentoForm" (ngSubmit)="onEditSubmit()">
+                                        <!-- Los campos ya estarán llenos con los valores del medicamento a editar -->
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>ID</mat-label>
+                                            <input matInput formControlName="id" [value]="selectedMedicamento?.id"
+                                                readonly />
+                                        </mat-form-field>
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Código</mat-label>
+                                            <input matInput formControlName="codigo"
+                                                [value]="selectedMedicamento?.codigo" />
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Fecha</mat-label>
+                                            <input matInput formControlName="fecha" type="date"
+                                                [value]="selectedMedicamento?.fecha" />
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Medicamento</mat-label>
+                                            <input matInput formControlName="medicamento"
+                                                [value]="selectedMedicamento?.medicamento" />
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Unidad</mat-label>
+                                            <input matInput formControlName="unidad"
+                                                [value]="selectedMedicamento?.unidad" />
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Cantidad</mat-label>
+                                            <input matInput formControlName="cantidad" type="number"
+                                                [value]="selectedMedicamento?.cantidad" />
+                                        </mat-form-field>
+
+                                        <mat-dialog-actions>
+                                            <button mat-button type="submit"
+                                                [disabled]="medicamentoForm.invalid">Actualizar</button>
+                                            <button mat-button mat-dialog-close>Cerrar</button>
+                                        </mat-dialog-actions>
+                                    </form>
+                                </mat-dialog-content>
+                            </ng-template>
+                        </mat-dialog-content>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <tr>
+                                        <th>Acciones</th>
+                                        <th>Fecha</th>
+                                        <th>Código</th>
+                                        <th>Medicamento</th>
+                                        <th>Unidad</th>
+                                        <th>Cantidad</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of medicamentos">
+                                        <td>
+                                            <div class="btn-group btn-group-sm" role="group"
+                                                aria-label="Small button group">
+                                                <button type="button" class="btn btn-danger"
+                                                    (click)="eliminar(item.id)">Eliminar</button>
+                                                <button type="button" class="btn btn-info"
+                                                    (click)="openEditModal(item)">Editar</button>
+                                            </div>
+                                        </td>
+                                        <td>{{item.fecha}}</td>
+                                        <td>{{ item.codigo }}</td>
+                                        <td>{{ item.medicamento }}</td>
+                                        <td>{{ item.unidad }}</td>
+                                        <td>{{item.cantidad}}</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
