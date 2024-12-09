@@ -18,6 +18,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RegistrarMedicamentoComponent } from './registrar-medicamento/registrar-medicamento.component';
+import { MatSelectModule } from '@angular/material/select';
 @NgModule({
   imports: [
     BrowserAnimationsModule,
@@ -31,7 +32,8 @@ import { RegistrarMedicamentoComponent } from './registrar-medicamento/registrar
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatSelectModule 
   ],
   declarations: [
     AppComponent,

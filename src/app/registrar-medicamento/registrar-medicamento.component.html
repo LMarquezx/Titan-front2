@@ -16,6 +16,16 @@
                                 <h2 mat-dialog-title>Agregar Medicamento</h2>
                                 <mat-dialog-content>
                                     <form [formGroup]="medicamentoForm" (ngSubmit)="onAddSubmit()">
+
+                                        <mat-form-field appearance="fill" class="form-field">
+                                            <mat-label>Seleccionar Medicamento</mat-label>
+                                            <mat-select formControlName="medicamento" (selectionChange)="setMedicamentosSelect($event.value)">
+                                              <mat-option *ngFor="let medicamento of medicamentosExistentes" [value]="medicamento">
+                                                {{ medicamento.codigo }} - {{ medicamento.medicamento }}
+                                              </mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+
                                         <mat-form-field appearance="fill" class="form-field">
                                             <mat-label>ID</mat-label>
                                             <input matInput formControlName="id" />
@@ -23,7 +33,7 @@
                                         </mat-form-field>
                                         <mat-form-field appearance="fill" class="form-field">
                                             <mat-label>Código</mat-label>
-                                            <input matInput formControlName="codigo" />
+                                            <input matInput formControlName="codigo" readonly/>
                                             <mat-error *ngIf="medicamentoForm.get('codigo')?.invalid">El código es obligatorio</mat-error>
                                         </mat-form-field>
                     
@@ -39,7 +49,7 @@
 
                                         <mat-form-field appearance="fill" class="form-field">
                                             <mat-label>Medicamento</mat-label>
-                                            <input matInput formControlName="medicamento" />
+                                            <input matInput formControlName="medicamento" readonly />
                                         </mat-form-field>
                     
                                         <mat-form-field appearance="fill" class="form-field">
@@ -90,6 +100,15 @@
                                 <h2 mat-dialog-title>Editar Medicamento</h2>
                                 <mat-dialog-content>
                                     <form [formGroup]="medicamentoForm" (ngSubmit)="onEditSubmit()">
+                                        <mat-form-field appearance="fill" class="form-field">
+                                            <mat-label>Seleccionar Medicamento</mat-label>
+                                            <mat-select formControlName="medicamento" (selectionChange)="setMedicamentosSelect($event.value)">
+                                              <mat-option *ngFor="let medicamento of medicamentosExistentes" [value]="medicamento">
+                                                {{ medicamento.codigo }} - {{ medicamento.medicamento }}
+                                              </mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
+
                                         <!-- Los campos ya estarán llenos con los valores del medicamento a editar -->
                                         <mat-form-field appearance="fill">
                                             <mat-label>ID</mat-label>
@@ -97,7 +116,7 @@
                                         </mat-form-field>
                                         <mat-form-field appearance="fill">
                                             <mat-label>Código</mat-label>
-                                            <input matInput formControlName="codigo" [value]="selectedMedicamento?.codigo" />
+                                            <input matInput formControlName="codigo" [value]="selectedMedicamento?.codigo" readonly/>
                                         </mat-form-field>
                     
                                         <mat-form-field appearance="fill">
@@ -112,7 +131,7 @@
 
                                         <mat-form-field appearance="fill">
                                             <mat-label>Medicamento</mat-label>
-                                            <input matInput formControlName="medicamento" [value]="selectedMedicamento?.medicamento" />
+                                            <input matInput formControlName="medicamento" [value]="selectedMedicamento?.medicamento" readonly/>
                                         </mat-form-field>
                     
                                         <mat-form-field appearance="fill" class="form-field">

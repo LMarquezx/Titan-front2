@@ -39,4 +39,9 @@ eliminarMedicamentoSalidas(id: string): Observable<any> {
 editarMedicamentoSalidas(medicamento: any): Observable<any> {
 return this.http.put<any>(`${this.apiUrl}/medicamentos-salidas/${medicamento.id}`, medicamento);
 }
+
+getMedicamentosExistentes():Observable<any[]>{
+  return this.http.get<any[]>(`${this.apiUrl}/mediExistencias`);
+}
+
 }

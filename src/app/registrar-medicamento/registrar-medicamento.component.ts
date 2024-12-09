@@ -11,7 +11,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class RegistrarMedicamentoComponent implements OnInit {
   @ViewChild('medicamentoModal') medicamentoModal!: TemplateRef<any>;
   @ViewChild('editMedicamentoModal') editMedicamentoModal!: TemplateRef<any>;
-  medicamentos: any[]=[];
+  medicamentos: any[] = [];
+  medicamentosExistentes: any[] = [];
   medicamentoForm!: FormGroup;
   selectedMedicamento: any;
 
@@ -19,6 +20,7 @@ export class RegistrarMedicamentoComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargarformulario();
+    this.cargarMedicamentosExistentes()
     this.listarMedicamentosEntrada();
   }
 
@@ -28,7 +30,7 @@ export class RegistrarMedicamentoComponent implements OnInit {
       codigo: ['', Validators.required],
       fecha: [''],
       noDoc: [''],
-      medicamento: [''],
+      medicamento: ['', Validators.required],
       caducidad: [''],
       unidad: [''],
       entrada: [0, Validators.min(0)],
@@ -39,6 +41,12 @@ export class RegistrarMedicamentoComponent implements OnInit {
     });
   }
 
+  cargarMedicamentosExistentes() {
+    this.medicamentosService.getMedicamentosExistentes().subscribe((data) => {
+      this.medicamentosExistentes = data;
+    })
+  }
+
   listarMedicamentosEntrada() {
     this.medicamentosService.getMedicamentos().subscribe((data) => {
       console.log(data);
@@ -46,35 +54,35 @@ export class RegistrarMedicamentoComponent implements OnInit {
     })
   }
   openAddModal() {
-    this.selectedMedicamento = null; 
+    this.selectedMedicamento = null;
     this.dialog.open(this.medicamentoModal);
-}
+  }
   openEditModal(medicamento: any) {
     this.selectedMedicamento = medicamento;
     this.medicamentoForm.patchValue({
-        id:medicamento.id,
-        codigo: medicamento.codigo,
-        fecha: medicamento.fecha,
-        noDoc:medicamento.noDoc,
-        medicamento: medicamento.medicamento,
-        caducidad:medicamento.caducidad,    
-        unidad: medicamento.unidad,
-        entrada: medicamento.entrada,
-        salida:medicamento.salida,
-        stock:medicamento.stock,
-        diasDisp:medicamento.diasDisp,
-        estado:medicamento.estado
+      id: medicamento.id,
+      codigo: medicamento.codigo,
+      fecha: medicamento.fecha,
+      noDoc: medicamento.noDoc,
+      medicamento: medicamento.medicamento,
+      caducidad: medicamento.caducidad,
+      unidad: medicamento.unidad,
+      entrada: medicamento.entrada,
+      salida: medicamento.salida,
+      stock: medicamento.stock,
+      diasDisp: medicamento.diasDisp,
+      estado: medicamento.estado
     });
     this.dialog.open(this.editMedicamentoModal);
-}
+  }
 
   eliminar(id: string) {
     const confirmDelete = confirm("¿Estás seguro de que deseas eliminar este medicamento?");
-        if (confirmDelete) {
-            this.medicamentosService.eliminarMedicamento(id).subscribe(() => {
-              this.listarMedicamentosEntrada();
-            });
-        }
+    if (confirmDelete) {
+      this.medicamentosService.eliminarMedicamento(id).subscribe(() => {
+        this.listarMedicamentosEntrada();
+      });
+    }
   }
   openModal() {
     this.dialog.open(this.medicamentoModal);
@@ -89,11 +97,18 @@ export class RegistrarMedicamentoComponent implements OnInit {
   }
   onEditSubmit() {
     if (this.medicamentoForm.valid && this.selectedMedicamento) {
-        const updatedMedicamento = { ...this.selectedMedicamento, ...this.medicamentoForm.value };
-        this.medicamentosService.editarMedicamento(updatedMedicamento).subscribe(() => {
-            this.dialog.closeAll();
-            this.listarMedicamentosEntrada(); 
-        });
+      const updatedMedicamento = { ...this.selectedMedicamento, ...this.medicamentoForm.value };
+      this.medicamentosService.editarMedicamento(updatedMedicamento).subscribe(() => {
+        this.dialog.closeAll();
+        this.listarMedicamentosEntrada();
+      });
     }
-}
+  }
+
+  setMedicamentosSelect(medic:any):void{
+    this.medicamentoForm.patchValue({
+      codigo:medic.codigo,
+      medicamento:medic.medicamento
+    });
+  }
 }
